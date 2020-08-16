@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Unstated from 'unstated-next';
 
-function usePlayer() {
+export function usePlayer() {
   const [cards, setCards] = React.useState([]);
   const [score, setScore] = React.useState(0);
 

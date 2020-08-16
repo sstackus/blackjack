@@ -1,9 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from 'testUtils';
+
 import Table from './Table';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<Table />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('Renders without crashing', () => {
+  render(<Table />);
+});
+
+test('Has styles', () => {
+  const { container } = render(<Table />);
+  expect(container.firstChild).toHaveClass('Table');
 });

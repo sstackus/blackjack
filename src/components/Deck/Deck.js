@@ -14,7 +14,7 @@ export default function Deck() {
 
   return (
     <div className="Deck">
-      <strong className="Deck__score Deck__score--dealer">
+      <strong className="Deck__score Deck__score--dealer" data-testid="dealer-score">
         {game.dealer.score}
       </strong>
 
@@ -55,6 +55,7 @@ export default function Deck() {
       </div>
 
       <strong
+        data-testid="player-score"
         className={`Deck__score
           ${isLoss && 'Deck__score--loss'}
           ${isWin && 'Deck__score--win'}

@@ -26,11 +26,12 @@ function shuffle(cards) {
   return _cards;
 }
 
-function useDeck() {
+export function useDeck() {
   const [deck, setDeck] = React.useState(generateDeck());
   const [isEmpty, setEmpty] = React.useState(false);
 
-  const takeCards = (n = 1) => new Promise((resolve) => setDeck((deck) => {
+  // @todo Handle async
+  const takeCards = (n = 1) => {
     const _deck = [...deck];
     const cards = [];
 
@@ -43,10 +44,10 @@ function useDeck() {
       cards.push(card);
     }
 
-    resolve(cards);
+    setDeck(cards);
 
-    return _deck;
-  }));
+    return cards;
+  };
 
   React.useEffect(() => {
     if (deck.length < 1) {

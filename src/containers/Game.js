@@ -12,14 +12,16 @@ const Statuses = {
   DRAW: 4,
 };
 
-function useGame() {
+export function useGame() {
   const [status, setStatus] = React.useState(Statuses.IS_HITTING);
   const deck = Deck.useContainer();
   const dealer = Players[0].useContainer();
   const player = Players[1].useContainer();
 
   React.useEffect(() => {
-    init();
+    // Start the game with 2 cards
+    const cards = deck.takeCards(2);
+    player.add(...cards);
   }, []);
 
   React.useEffect(() => {
@@ -38,23 +40,17 @@ function useGame() {
     }
   }, [status, dealer.score]);
 
-  const init = async () => {
-    // Start the game with 2 cards
-    const cards = await deck.takeCards(2);
-    player.add(...cards);
-  };
-
-  const goDealer = async () => {
+  const goDealer = () => {
     if (isEnded()) return;
 
-    const cards = await deck.takeCards();
+    const cards = deck.takeCards();
     dealer.add(...cards);
   };
 
-  const hit = async () => {
+  const hit = () => {
     if (isEnded()) return;
 
-    const cards = await deck.takeCards();
+    const cards = deck.takeCards();
     const score = player.add(...cards);
 
     if (score > process.env.REACT_APP_MAX_SCORE) {

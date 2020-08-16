@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from '../Card';
 
 describe('Card', () => {
   describe('Enums', () => {
@@ -6,13 +6,16 @@ describe('Card', () => {
       expect(Card.Suits).toBeInstanceOf(Array);
       expect(Card.Suits.length).toBeGreaterThan(1);
     });
+
     test('Suits is a flat array', () => {
       expect(Card.Suits.every(suit => typeof suit === 'string')).toBe(true);
     });
+
     test('Has ranks', () => {
       expect(Card.Ranks).toBeInstanceOf(Array);
       expect(Card.Ranks.length).toBeGreaterThan(1);
     });
+
     test('Ranks is key-value pairs', () => {
       for (let i = 0; i < Card.Ranks.length; i++) {
         expect(Card.Ranks[i]).toMatchObject([
@@ -21,9 +24,11 @@ describe('Card', () => {
         ]);
       }
     });
+
     test('Suits is immutable', () => {
       expect(Object.isFrozen(Card.Suits)).toBe(true);
     });
+
     test('Ranks is immutable', () => {
       expect(Object.isFrozen(Card.Ranks)).toBe(true);
     });
@@ -78,6 +83,7 @@ describe('Card', () => {
 
     test('Implements toString', () => {
       const cast = `${card}`;
+
       expect(cast).toContain(suit);
       expect(cast).toContain(rank[0]);
     });
