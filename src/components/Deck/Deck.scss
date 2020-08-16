@@ -102,6 +102,10 @@
       color: #2ad175;
     }
 
+    &--draw {
+      color: #999;
+    }
+
     @keyframes deck-score-slam {
       from { transform: scale(10); opacity: 0; }
     }

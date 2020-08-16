@@ -9,6 +9,7 @@ export default function Deck() {
   const isEnded = game.isEnded();
   const isWin = game.isWin();
   const isLoss = game.isLoss();
+  const isDraw = game.isDraw();
   const isBusy = game.isBusy();
 
   return (
@@ -56,7 +57,8 @@ export default function Deck() {
       <strong
         className={`Deck__score
           ${isLoss && 'Deck__score--loss'}
-          ${isWin && 'Deck__score--win'}`}
+          ${isWin && 'Deck__score--win'}
+          ${isDraw && 'Deck__score--draw'}`}
       >
         {game.player.score}
       </strong>

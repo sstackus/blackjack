@@ -10,7 +10,12 @@ export default function Table() {
   const game = Game.useContainer();
 
   return (
-    <div className={`Table ${game.isWin() && 'Table--win'} ${game.isLoss() && 'Table--loss'}`}>
+    <div
+      className={`Table
+        ${game.isWin() && 'Table--win'}
+        ${game.isLoss() && 'Table--loss'}
+        ${game.isDraw() && 'Table--draw'}`}
+      >
       <Player className="Table__row" label="Dealer" container={Players[0]} />
       <Deck />
       <Player className="Table__row" container={Players[1]} />

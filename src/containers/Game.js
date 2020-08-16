@@ -9,6 +9,7 @@ const Statuses = {
   IS_STICKING: 1,
   LOSS: 2,
   WIN: 3,
+  DRAW: 4,
 };
 
 function useGame() {
@@ -23,14 +24,14 @@ function useGame() {
 
   React.useEffect(() => {
     if (status === Statuses.IS_STICKING) {
-      const { score } = dealer;
-
-      if (score > process.env.REACT_APP_MAX_SCORE) {
+      if (dealer.score > process.env.REACT_APP_MAX_SCORE) {
         // Dealer loses
         setStatus(Statuses.WIN);
-      } else if (score > player.score) {
+      } else if (dealer.score > player.score) {
         // Dealer wins
         setStatus(Statuses.LOSS);
+      } else if (dealer.score === process.env.REACT_APP_MAX_SCORE && dealer.score === player.score) {
+        setStatus(Statuses.DRAW);
       } else {
         goDealer();
       }
@@ -72,9 +73,11 @@ function useGame() {
 
   const isWin = () => status === Statuses.WIN;
 
+  const isDraw = () => status === Statuses.DRAW;
+
   const isBusy = () => status === Statuses.IS_STICKING;
 
-  const isEnded = () => isLoss() || isWin();
+  const isEnded = () => isLoss() || isWin() || isDraw();
 
   const restart = () => {
     // @todo
@@ -83,7 +86,7 @@ function useGame() {
 
   return {
     dealer, player,
-    hit, stick, isEnded, isLoss, isWin, isBusy, restart,
+    hit, stick, isEnded, isLoss, isWin, isDraw, isBusy, restart,
   };
 }
 
