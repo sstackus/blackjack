@@ -58,7 +58,7 @@ export default function Deck() {
           ${isLoss && 'Deck__score--loss'}
           ${isWin && 'Deck__score--win'}`}
       >
-        {game.player1.score}
+        {game.player.score}
       </strong>
     </div>
   );

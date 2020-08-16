@@ -15,7 +15,7 @@ function useGame() {
   const [status, setStatus] = React.useState(Statuses.IS_HITTING);
   const deck = Deck.useContainer();
   const dealer = Players[0].useContainer();
-  const player1 = Players[1].useContainer();
+  const player = Players[1].useContainer();
 
   React.useEffect(() => {
     init();
@@ -28,7 +28,7 @@ function useGame() {
       if (score > Number(process.env.REACT_APP_MAX_SCORE)) {
         // Dealer loses
         setStatus(Statuses.WIN);
-      } else if (score > player1.score) {
+      } else if (score > player.score) {
         // Dealer wins
         setStatus(Statuses.LOSS);
       } else {
@@ -40,7 +40,7 @@ function useGame() {
   const init = async () => {
     // Start the game with 2 cards
     const cards = await deck.takeCards(2);
-    player1.add(...cards);
+    player.add(...cards);
   };
 
   const goDealer = async () => {
@@ -54,7 +54,7 @@ function useGame() {
     if (isEnded()) return;
 
     const cards = await deck.takeCards();
-    const score = player1.add(...cards);
+    const score = player.add(...cards);
 
     if (score > Number(process.env.REACT_APP_MAX_SCORE)) {
       // Player loses
@@ -82,7 +82,7 @@ function useGame() {
   };
 
   return {
-    dealer, player1,
+    dealer, player,
     hit, stick, isEnded, isLoss, isWin, isBusy, restart,
   };
 }
