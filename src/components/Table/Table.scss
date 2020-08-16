@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  border: solid transparent 5px;
 
   @media (min-width: 640px) {
     margin: 1rem 0;
@@ -19,5 +20,13 @@
 
   &__row {
     height: 30vh;
+  }
+
+  &--loss {
+    border-color: #e01220;
+  }
+
+  &--win {
+    border-color: #2ad175;
   }
 }
