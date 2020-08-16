@@ -8,6 +8,10 @@ import * as serviceWorker from './serviceWorker';
 
 import './index.scss';
 
+if (typeof process.env.REACT_APP_MAX_SCORE === 'undefined') {
+  throw new ReferenceError('Environment variables not defined');
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Containers.Deck.Provider>
