@@ -9,6 +9,7 @@ export default function Deck() {
   const isEnded = game.isEnded();
   const isWin = game.isWin();
   const isLoss = game.isLoss();
+  const isBusy = game.isBusy();
 
   return (
     <div className="Deck">
@@ -23,7 +24,7 @@ export default function Deck() {
               className="Deck__button"
               type="button"
               onClick={() => game.hit()}
-              disabled={isEnded}
+              disabled={isBusy}
             >
               <span>Hit</span>
             </button>
@@ -32,7 +33,7 @@ export default function Deck() {
               className="Deck__button"
               type="button"
               onClick={() => game.stick()}
-              disabled={isEnded}
+              disabled={isBusy}
             >
               <span>Stick</span>
             </button>
@@ -57,7 +58,7 @@ export default function Deck() {
           ${isLoss && 'Deck__score--loss'}
           ${isWin && 'Deck__score--win'}`}
       >
-        {game.player.score}
+        {game.player1.score}
       </strong>
     </div>
   );
