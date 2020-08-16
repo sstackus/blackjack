@@ -11,31 +11,38 @@ const Statuses = {
 };
 
 function useGame() {
-  const [score, setScore] = React.useState(0);
   const [status, setStatus] = React.useState(Statuses.IN_PROGRESS);
   const deck = Deck.useContainer();
   const dealer = Players[0].useContainer();
   const player = Players[1].useContainer();
 
   React.useEffect(() => {
-    // Start the game with 2 cards
-    setScore(player.add(...deck.takeCards(2)));
-
-    // @todo Remove test
-    dealer.add(...deck.takeCards());
+    init();
   }, []);
 
-  const hit = () => {
-    const sum = player.add(...deck.takeCards());
-    setScore(sum);
-    if (sum > Number(process.env.REACT_APP_MAX_SCORE)) {
+  const init = async () => {
+    // Start the game with 2 cards
+    let [cards1, cards2] = await Promise.all([deck.takeCards(2), deck.takeCards()]);
+    player.add(...cards1);
+    dealer.add(...cards2);
+  };
+
+  const hit = async () => {
+    if (isEnded()) return;
+
+    const cards = await deck.takeCards();
+    const score = player.add(...cards);
+    if (score > Number(process.env.REACT_APP_MAX_SCORE)) {
       setStatus(Statuses.LOSS);
     }
   };
 
-  const stick = () => {
+  const stick = async () => {
+    if (isEnded()) return;
+
     // @todo Remove test
-    dealer.add(...deck.takeCards());
+    const cards = await deck.takeCards();
+    dealer.add(...cards);
   };
 
   const isEnded = () => status !== Statuses.IN_PROGRESS;
@@ -46,10 +53,11 @@ function useGame() {
 
   const restart = () => {
     // @todo
+    window.location.reload();
   };
 
   return {
-    dealer, player, score,
+    dealer, player,
     hit, stick, isEnded, isLoss, isWin, restart,
   };
 }

@@ -30,7 +30,7 @@ function useDeck() {
   const [deck, setDeck] = React.useState(generateDeck());
   const [isEmpty, setEmpty] = React.useState(false);
 
-  const takeCards = (n = 1) => {
+  const takeCards = (n = 1) => new Promise((resolve) => setDeck((deck) => {
     const _deck = [...deck];
     const cards = [];
 
@@ -43,13 +43,16 @@ function useDeck() {
       cards.push(card);
     }
 
-    setDeck(_deck);
-    if (_deck.length < 1) {
+    resolve(cards);
+
+    return _deck;
+  }));
+
+  React.useEffect(() => {
+    if (deck.length < 1) {
       setEmpty(true);
     }
-
-    return cards;
-  };
+  }, [deck])
 
   return { takeCards, isEmpty };
 }

@@ -12,6 +12,10 @@ export default function Deck() {
 
   return (
     <div className="Deck">
+      <strong className="Deck__score Deck__score--dealer">
+        {game.dealer.score}
+      </strong>
+
       <div className="Deck__buttons">
         {!isEnded && (
           <>
@@ -53,7 +57,7 @@ export default function Deck() {
           ${isLoss && 'Deck__score--loss'}
           ${isWin && 'Deck__score--win'}`}
       >
-        {game.score}
+        {game.player.score}
       </strong>
     </div>
   );

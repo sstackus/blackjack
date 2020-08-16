@@ -77,7 +77,6 @@
   }
 
   &__score {
-    margin-top: 1rem;
     font-size: 4rem;
     font-weight: 400;
     line-height: 1em;
@@ -85,6 +84,11 @@
     display: block;
     z-index: 10;
     position: relative;
+    margin: 2rem 0;
+
+    &--dealer {
+      font-size: 2rem;
+    }
 
     &--loss, &--win {
       animation: .2s both 1 deck-score-slam;
