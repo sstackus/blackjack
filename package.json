@@ -1,7 +1,8 @@
 {
-  "name": "bj",
-  "version": "0.1.0",
+  "name": "blackjack",
+  "version": "1.0.0",
   "private": true,
+  "author": "Simon Stack <simon@stackus.dev>",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -11,6 +12,10 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "unstated-next": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sol-214/blackjack.git"
   },
   "scripts": {
     "start": "react-scripts start",
