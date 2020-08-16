@@ -25,7 +25,7 @@ function useGame() {
     if (status === Statuses.IS_STICKING) {
       const { score } = dealer;
 
-      if (score > Number(process.env.REACT_APP_MAX_SCORE)) {
+      if (score > process.env.REACT_APP_MAX_SCORE) {
         // Dealer loses
         setStatus(Statuses.WIN);
       } else if (score > player.score) {
@@ -56,7 +56,7 @@ function useGame() {
     const cards = await deck.takeCards();
     const score = player.add(...cards);
 
-    if (score > Number(process.env.REACT_APP_MAX_SCORE)) {
+    if (score > process.env.REACT_APP_MAX_SCORE) {
       // Player loses
       setStatus(Statuses.LOSS);
     }
