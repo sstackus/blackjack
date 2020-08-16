@@ -19,9 +19,7 @@ export function useGame() {
   const player = Players[1].useContainer();
 
   React.useEffect(() => {
-    // Start the game with 2 cards
-    const cards = deck.takeCards(2);
-    player.add(...cards);
+    init();
   }, []);
 
   React.useEffect(() => {
@@ -40,17 +38,23 @@ export function useGame() {
     }
   }, [status, dealer.score]);
 
-  const goDealer = () => {
+  const init = async () => {
+    // Start the game with 2 cards
+    const cards = await deck.takeCards(2);
+    player.add(...cards);
+  };
+
+  const goDealer = async () => {
     if (isEnded()) return;
 
-    const cards = deck.takeCards();
+    const cards = await deck.takeCards();
     dealer.add(...cards);
   };
 
-  const hit = () => {
+  const hit = async () => {
     if (isEnded()) return;
 
-    const cards = deck.takeCards();
+    const cards = await deck.takeCards();
     const score = player.add(...cards);
 
     if (score > process.env.REACT_APP_MAX_SCORE) {

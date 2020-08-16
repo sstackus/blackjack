@@ -31,7 +31,7 @@ export function useDeck() {
   const [isEmpty, setEmpty] = React.useState(false);
 
   // @todo Handle async
-  const takeCards = (n = 1) => {
+  const takeCards = (n = 1) => new Promise((resolve) => setDeck((deck) => {
     const _deck = [...deck];
     const cards = [];
 
@@ -44,10 +44,10 @@ export function useDeck() {
       cards.push(card);
     }
 
-    setDeck(cards);
+    resolve(cards);
 
-    return cards;
-  };
+    return _deck;
+  }));
 
   React.useEffect(() => {
     if (deck.length < 1) {
