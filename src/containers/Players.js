@@ -22,4 +22,7 @@ function usePlayer() {
   });
 }
 
-export default Unstated.createContainer(usePlayer);
+export default [
+  Unstated.createContainer(usePlayer), // Dealer
+  Unstated.createContainer(usePlayer), // Player 1
+];

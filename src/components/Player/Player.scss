@@ -4,6 +4,8 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  position: relative;
+  width: 100%;
 
   &__card {
     // Prevent SVG anti-aliasing glitching
@@ -36,5 +38,21 @@
         top: 1rem;
       }
     }
+  }
+
+  &__label {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    opacity: .2;
+    font-weight: 600;
+    position: absolute;
+    left: 0;
+    width: 5rem;
+    text-align: center;
+    top: calc(50% + 2.5rem);
+    line-height: 1rem;
+    height: 1rem;
+    transform: rotateZ(-90deg);
+    transform-origin: left center;
   }
 }

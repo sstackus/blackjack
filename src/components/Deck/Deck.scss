@@ -15,7 +15,7 @@
     border: 0;
     background: none;
     flex: 0 0 50%;
-    max-width: 10rem;
+    max-width: 12rem;
     position: relative;
     z-index: 1;
 
@@ -51,9 +51,11 @@
       }
     }
 
-    &:last-child {
+    & + &:last-child {
       margin-left: -1px;
+    }
 
+    &:last-child {
       > * {
         border-top-right-radius: $button-radius;
         border-bottom-right-radius: $button-radius;
@@ -81,9 +83,23 @@
     line-height: 1em;
     text-align: center;
     display: block;
+    z-index: 10;
+    position: relative;
 
-    &--game-over {
+    &--loss, &--win {
+      animation: .2s both 1 deck-score-slam;
+    }
+
+    &--loss {
       color: #e01220;
+    }
+
+    &--win {
+      color: #2ad175;
+    }
+
+    @keyframes deck-score-slam {
+      from { transform: scale(10); opacity: 0; }
     }
   }
 }
