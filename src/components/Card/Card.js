@@ -12,7 +12,7 @@ export default function({ card, className }) {
 
   return (
     <div className={`Card Card--${suit} Card--${rankName} ${className}`}>
-      <img className="Card__image" src={`images/svg/${filename}`} alt={`${rankName} of ${suit}`} />
+      <img className="Card__image" src={`images/cards/${filename}`} alt={`${rankName} of ${suit}`} />
     </div>
   );
 }
