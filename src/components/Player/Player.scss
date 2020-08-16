@@ -1,0 +1,58 @@
+.Player {
+  $card-rotations: (0, 2deg, -1.5deg, 2deg, 0, 3.5deg, -1deg, 0, -2deg, 1.5deg);
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+
+  &__card {
+    // Prevent SVG anti-aliasing glitching
+    transform: translateZ(0);
+    transform-style: preserve-3d;
+    animation: .15s cubic-bezier(.14,0,.76,.13) 1 both player-card-intro;
+    position: relative;
+    top: 0;
+
+    & + & {
+      // @todo Find a more performant solution than flexbox with negative margin-left
+      margin-left: -20vh;
+    }
+
+    @for $i from 1 through length($card-rotations) {
+      // Infinite disorder
+      // Repeat sequence in `$card-rotations` depending on its length
+      &:nth-child(#{length($card-rotations)}n + #{$i}) {
+        transform: translateY(-1rem) rotateZ(#{nth($card-rotations, $i)});
+      }
+    }
+
+    @keyframes player-card-intro {
+      0% {
+        opacity: 0;
+        top: 2rem;
+      }
+      50% {
+        opacity: 1;
+        top: 1rem;
+      }
+    }
+  }
+
+  &__label {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    opacity: .2;
+    font-weight: 600;
+    position: absolute;
+    left: 0;
+    width: 5rem;
+    text-align: center;
+    top: calc(50% + 2.5rem);
+    line-height: 1rem;
+    height: 1rem;
+    transform: rotateZ(-90deg);
+    transform-origin: left center;
+  }
+}

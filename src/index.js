@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import Table from 'components/Table/Table';
+import Provider from 'components/Provider/Provider';
+import { Deck, Players, Game } from 'containers';
+
 import * as serviceWorker from './serviceWorker';
+
+import './index.scss';
+
+if (typeof process.env.REACT_APP_MAX_SCORE === 'undefined') {
+  throw new ReferenceError('Environment variables not defined');
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider containers={[Deck, Players[0], Players[1], Game]}>
+      <Table />
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
