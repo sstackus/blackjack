@@ -48,7 +48,9 @@ export default class Card {
   }
 
   getValue() {
-    return this.rank[1];
+    return this.isAce() && this.isSwitchedAce
+      ? 1
+      : this.rank[1];
   }
 
   getSuit() {
@@ -57,5 +59,21 @@ export default class Card {
 
   toString() {
     return `${this.rank[0]}-of-${this.suit}`;
+  }
+
+  isAce() {
+    return this.rank[0] === 'ace';
+  }
+
+  isUnswitchedAce() {
+    if (!this.isAce()) return false;
+
+    return this.isSwitchedAce !== true;
+  }
+
+  switchAce() {
+    if (!this.isAce()) return;
+
+    this.isSwitchedAce = true;
   }
 }

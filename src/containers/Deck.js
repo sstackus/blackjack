@@ -8,7 +8,7 @@ function generateDeck() {
 
   for (let s = 0; s < Card.Suits.length; s++) {
     for (let r = 0; r < Card.Ranks.length; r++) {
-      cards.push(Object.freeze(new Card(Card.Suits[s], Card.Ranks[r])));
+      cards.push(new Card(Card.Suits[s], Card.Ranks[r]));
     }
   }
 
