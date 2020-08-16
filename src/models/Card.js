@@ -35,10 +35,14 @@ export default class Card {
       suit: {
         value: suit,
         enumerable: false,
+        configurable: false,
+        writable: false,
       },
       rank: {
         value: rank,
         enumerable: false,
+        configurable: false,
+        writable: false,
       },
     });
   }
