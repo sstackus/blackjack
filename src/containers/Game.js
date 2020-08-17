@@ -2,7 +2,7 @@ import React from 'react';
 // Always scope imports and avoid loose variables
 import * as Unstated from 'unstated-next';
 
-import { Deck, Players } from 'containers';
+import { Players } from 'containers';
 
 const Statuses = {
   IS_HITTING: 0,
@@ -14,13 +14,43 @@ const Statuses = {
 
 export function useGame() {
   const [status, setStatus] = React.useState(Statuses.IS_HITTING);
-  const deck = Deck.useContainer();
   const dealer = Players[0].useContainer();
   const player = Players[1].useContainer();
 
+  const hit = () => {
+    if (isEnded()) return;
+    player.takeCard();
+  };
+
+  const stick = () => {
+    if (isEnded()) return;
+    setStatus(Statuses.IS_STICKING);
+  };
+
+  const goDealer = () => {
+    if (isEnded()) return;
+    dealer.takeCard();
+  };
+
+  const isLoss = React.useCallback(() => status === Statuses.LOSS, [status]);
+
+  const isWin = React.useCallback(() => status === Statuses.WIN, [status]);
+
+  const isDraw = React.useCallback(() => status === Statuses.DRAW, [status]);
+
+  const isBusy = React.useCallback(() => status === Statuses.IS_STICKING, [status]);
+
+  const isEnded = React.useCallback(() => isLoss() || isWin() || isDraw(), [isLoss, isWin, isDraw]);
+
+  const restart = () => {
+    // @todo
+    window.location.reload();
+  };
+
   React.useEffect(() => {
-    init();
-  }, []);
+    // Start the game with 2 cards
+    player.takeCard(2);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
     if (status === Statuses.IS_STICKING) {
@@ -38,51 +68,11 @@ export function useGame() {
     }
   }, [status, dealer.score]);
 
-  const init = async () => {
-    // Start the game with 2 cards
-    const cards = await deck.takeCards(2);
-    player.add(...cards);
-  };
-
-  const goDealer = async () => {
-    if (isEnded()) return;
-
-    const cards = await deck.takeCards();
-    dealer.add(...cards);
-  };
-
-  const hit = async () => {
-    if (isEnded()) return;
-
-    const cards = await deck.takeCards();
-    const score = player.add(...cards);
-
-    if (score > process.env.REACT_APP_MAX_SCORE) {
-      // Player loses
+  React.useEffect(() => {
+    if (status === Statuses.IS_HITTING && player.score > process.env.REACT_APP_MAX_SCORE) {
       setStatus(Statuses.LOSS);
     }
-  };
-
-  const stick = async () => {
-    if (isEnded()) return;
-
-    setStatus(Statuses.IS_STICKING);
-  };
-
-  const isLoss = () => status === Statuses.LOSS;
-
-  const isWin = () => status === Statuses.WIN;
-
-  const isDraw = () => status === Statuses.DRAW;
-
-  const isBusy = () => status === Statuses.IS_STICKING;
-
-  const isEnded = () => isLoss() || isWin() || isDraw();
-
-  const restart = () => {
-    // @todo
-    window.location.reload();
-  };
+  }, [status, player.score]);
 
   return {
     dealer, player,
